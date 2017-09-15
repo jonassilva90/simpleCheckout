@@ -1,0 +1,55 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "aa4337a083ffd180af0df7959000034e",
+    "packages": [
+        {
+            "name": "jonassilva/correios",
+            "version": "1.1.1-stable",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jonasribeirosilva/correios.git",
+                "reference": "2acf01e20d6b16847df588ee6c166fef6653ab30"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jonasribeirosilva/correios/zipball/2acf01e20d6b16847df588ee6c166fef6653ab30",
+                "reference": "2acf01e20d6b16847df588ee6c166fef6653ab30",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.3.3 || ^7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Correios\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonas Silva",
+                    "email": "jonas@jonassilva.com.br",
+                    "homepage": "http://jonassilva.com.br"
+                }
+            ],
+            "description": "Biblioteca para calculo de preço e prazo pelo webservice dos correios",
+            "time": "2017-09-14T14:02:34+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}

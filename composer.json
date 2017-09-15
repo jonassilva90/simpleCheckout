@@ -1,0 +1,23 @@
+{
+	"name" : "jonassilva/simplecheckout",
+	"require" : {
+		"php" : "^5.3.3 || ^7.0",
+		"jonassilva/correios": "*" 
+	},
+	"authors" : [{
+			"name" : "Jonas Silva",
+			"email" : "jonas@jonassilva.com.br",
+			"homepage" : "http://jonassilva.com.br"
+		}
+	],
+	"support" : {
+		"email" : "jonas@jonassilva.com.br",
+		"source" : "https://github.com/jonasribeirosilva/simpleCheckout"
+	},
+	"autoload" : {
+		"psr-4" : {
+			"SimpleCheckout\\" : "src/"
+		}
+	},
+	"license" : "Apache-2.0"
+}
