@@ -7,6 +7,7 @@ class Session
    public function __construct(){
        if(session_status()!=PHP_SESSION_ACTIVE)
            session_start();
+       
        if(!isset($_SESSION['cart'])){
            $_SESSION['cart'] = [
                'data' => [],
@@ -16,22 +17,26 @@ class Session
    }
    public function get($name = null,$default = null){
        $value = $_SESSION['cart']['data'];
-       $names = explode('.',$name);
-       $found = false;
-       foreach ($names as $name) {
-           if(is_array($value) && isset($value[$name])){
-               $value = $value[$name];
-               $found = true;
-           } else {
-               $found = false;
-               break;
-           }
-       }
-       
-       if(!$found){
-           return $default;
-       } else {
+       if(is_null($name)){
            return $value;
+       } else {
+           $names = explode('.',$name);
+           $found = false;
+           foreach ($names as $name) {
+               if(is_array($value) && isset($value[$name])){
+                   $value = $value[$name];
+                   $found = true;
+               } else {
+                   $found = false;
+                   break;
+               }
+           }
+           
+           if(!$found){
+               return $default;
+           } else {
+               return $value;
+           }
        }
    }
    public function getItens($index = null,$name = null){
@@ -79,7 +84,7 @@ class Session
            
            return $this->_put($var[$name], $names, $value);
        } else {
-           $var[$name] = $value;
+           $var[ $names[0] ] = $value;
            return true;
        }
    }
@@ -99,7 +104,8 @@ class Session
        return true;
    }
    public function deleteItem($index){
-       isset($_SESSION['cart']['itens'][$index]) && unset($_SESSION['cart']['itens'][$index]);
+       if(isset($_SESSION['cart']['itens'][$index]))
+           unset($_SESSION['cart']['itens'][$index]);
        array_values($_SESSION['cart']['itens']);
        return true;
    }

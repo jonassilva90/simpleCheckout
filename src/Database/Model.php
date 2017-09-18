@@ -16,7 +16,7 @@ class Model {
     static function Build(){
         $m = new static();
         $r = new Build();
-        $r->from = $m->getTable();
+        $r->from[] = $m->getTable();
         $r->primaryKey = $m->getPrimaryKey();
         
         return $r;
@@ -51,10 +51,6 @@ class Model {
     static function whereRaw($where){
         $r = self::Build();
         return $r->whereRaw($where);
-    }
-    static function order($field, $order = "ASC"){
-        $r = self::Build();
-        return $r->order($field, $order);
     }
     static function order($field, $order = "ASC"){
         $r = self::Build();

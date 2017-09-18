@@ -4,7 +4,7 @@ namespace SimpleCheckout\Database;
 
 class Build {
     public $primaryKey;
-    public $from;
+    public $from = [];
     public $columns = [];
     public $join = [];
     public $where = [];
@@ -76,10 +76,18 @@ class Build {
     }
     public function find($id){
         $this->where($this->primaryKey, '=', $id);
-        return $this->get()->fetch( \PDO::FETCH_ASSOC );
+        $result = $this->get();
+        if($result->rowCount()==0)
+            return false;
+        
+        return $result->fetch( \PDO::FETCH_ASSOC );
     }
     public function first(){
-        return $this->get()->fetch( \PDO::FETCH_ASSOC );
+        $result = $this->get();
+        if($result->rowCount()==0)
+            return false;
+            
+        return $result->fetch( \PDO::FETCH_ASSOC );
     }
     public function insert($data){
         return Query::insertByArray($data, $this->from);

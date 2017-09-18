@@ -5,6 +5,6 @@ namespace SimpleCheckout;
 use SimpleCheckout\Database\Model;
 
 class Product extends Model {
-    protected $table = 'produtos';
+    protected $table = 'products';
     protected $primaryKey = 'id';
 }

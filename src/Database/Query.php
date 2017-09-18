@@ -81,8 +81,8 @@ class Query {
                 $options
             );
         } catch (\PDOException $e) {
-            unset(self::$connection);
-            throw new \Exception("Connection failed: " . $e->getMessage()."");
+            self::$connection = null;
+            throw new \Exception("Connection failed: " . utf8_encode( $e->getMessage() ).".");
             return false;
         }
         
