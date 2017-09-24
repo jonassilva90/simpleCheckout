@@ -33,11 +33,17 @@ class Cart
                ],
                'total' => [
                    'weight' => 0,//Peso em kg (Soma total)
-                   'price'  => 0,//Preco (Soma total)
+                   'price'  => 0,//Preco (Soma total) Subtotal
                    'width'  => 0,//Largura em cm (Max)
                    'height' => 0,//Altura em cm (Max)
                    'length' => 0//Comprimento em cm (Soma total)
+              ],
+              'amount' => [
+                   'shipping'  => 0,//Valor do frete(conforme typeShipping escolhido)
+                   'descont' => 0,//Valor dos descontos
+                   'total' => 0//Valor total da venda = total.price + amount.shipping - amount.descont;
                ]
+               
            ]);
        }
    }
@@ -49,17 +55,17 @@ class Cart
        
        //Buscar FRETE e PRAZO
        if(!empty($r['data']['address']['zipcode']) && empty($r['data']['shipping']))
-           $r['data']['shipping'] = $this->calcShipping();//FIXME Falta jonassilva/correios
+           $r['data']['shipping'] = $this->calcShipping();
        
        return $r;
    }
    /** Pagar dados do carrinho
     * 
     * @param string $name Pegar um atributo especifico OU NULL para retornar todos
-    * @param unknown $default Valor se nao encontrar o atributo
+    * @param string $default Valor se nao encontrar o atributo
     * @example Cart->get('address.zipcode'); ou Cart->get(); ou get('type_shipping'); 
     * 
-    * @return unknown 
+    * @return string|int|float|boolean|array 
     */
    public function get($name = null,$default = null){
        return $this->session->get($name,$default);
@@ -165,7 +171,7 @@ class Cart
    public function deleteItem(int $idProduto){
         $this->setItem($idProduto,0,3);
    }
-   public function calcTotal(){
+   public function calcTotal($onlyTotal = false){
        $total = [
            'weight' => 0,//Peso em kg (Soma total)
            'price'  => 0,//Preco (Soma total)
@@ -193,7 +199,28 @@ class Cart
            
        $this->set('total', $total);
        
-       $this->calcShipping();
+       if(!$onlyTotal)
+            $this->calcShipping();
+       
+       $amount = [
+           'shipping'  => 0,//Valor do frete(conforme typeShipping escolhido)
+           'descont' => 0,//Valor dos descontos
+           'total' => 0//Valor total da venda = total.price + amount.shipping - amount.descont;
+       ];
+       //Pegar tipo de frete selecionado
+       $typeShipping = (int)$this->get("type_shipping",-1);
+       $shipping = $this->get("shipping",[]);
+       if($typeShipping>=0 && isset($shipping[$typeShipping]['value']))
+           $amount['shipping'] = $shipping[$typeShipping]['value'];
+       else
+           $this->set("type_shipping",null);
+       //Pegar cupon
+       //TODO Opcao ainda inativa
+       
+       //Calcular Totais finais
+       $amount['total'] = $total['price'] + $amount['shipping'] - $amount['descont'];
+       
+       $this->set('amount', $amount);
    }
    public function calcShipping($types = null){
        $sCepDestino = $this->get('address.zipcode');

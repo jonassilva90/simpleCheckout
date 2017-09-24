@@ -80,6 +80,8 @@ try {
     Router('/api/cart/setItem/{idProduct}/{qtda}/{action?}', 'CartAPI@setItem');
     Router('/api/cart/deleteItem/{idProduct}', 'CartAPI@deleteItem');
     Router('/api/cart/setAddress', 'CartAPI@setAddress');
+    Router('/api/cart/setTypeShipping/{idtype}', 'CartAPI@setTypeShipping');
+    
     Router('/', 'CartAPI@index');
     
     throw new \Exception("Rota não encotrada!");

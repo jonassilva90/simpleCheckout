@@ -73,7 +73,7 @@
 		<div class="col-md-3 col-sd-12">
 			<h5><strong>1 - CEP</strong></h5>
 			<div class="input-group">
-      			<input class="form-control" type="text" id="field_zipcode" value="{{$dataCart['dataCart']->zipcode}}" />
+      			<input class="form-control" type="text" id="field_zipcode" value="" />
         		<span class="input-group-btn">
                     <button class="btn btn-primary" id="btnQueryCEP" type="button">Buscar</button>
                 </span>
@@ -86,7 +86,8 @@
     	</div>
     	<div class="col-md-3 col-sd-12">
     		<h5><strong>3 - Pagamento</strong></h5>
-    		<button class="btn btn-success btn-block disabled" id="btnPag">Pagar com Pagseguro</button>
+    		<div id="dvTotais"></div>
+    		<a href="/" class="btn btn-success btn-block disabled" id="btnPag">Pagar</a>
     	</div>
 	</div>
 	</div>

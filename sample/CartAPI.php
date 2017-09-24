@@ -11,6 +11,9 @@ class CartAPI {
         return view('index',['dataCart' => $cart->all()]);
     }
     
+    /**
+     * @return \SimpleCheckout\Cart
+     */
     private function cart(){
         return new Cart(realpath(__DIR__."").'/correios.config');
     }
@@ -40,6 +43,16 @@ class CartAPI {
         try {
             $cart = $this->cart();
             $cart->deleteItem((int)$idProduct);
+            return $this->returnApi($cart);
+        } catch (\Exception $e) {
+            return ['status' => false, 'strError'=>$e->getMessage(),'data' => null];
+        }
+    }
+    public function setTypeShipping($typeShipping){
+        try{
+            $cart = $this->cart();
+            $cart->set('type_shipping', $typeShipping);
+            $cart->calcTotal(true);
             return $this->returnApi($cart);
         } catch (\Exception $e) {
             return ['status' => false, 'strError'=>$e->getMessage(),'data' => null];
